@@ -3,18 +3,21 @@ combat des montres par lars schougaard 406
 """
 import random
 
-vie = 20
 
 while True:
     nb_victoire_consecutive = 0
     victoire = 0
     defaite = 0
     nb_combat = 0
-    while True:
+    vie = 20
+    escaped = False
 
+    while True:
         force_monstre = random.randint(1, 12)
-        if nb_combat != 0 and nb_combat != 1 and victoire % 3 == 0:
-            force_monstre = 9000
+        if victoire > 0 and victoire % 3 == 0 and not escaped:
+            escaped = False
+            print("Vous tomber contre un boss.")
+            force_monstre = 11
         print(f"vous tomber face a un adeversaire de difficulte :{force_monstre}")
         action = int(input("Que voulez-vous faire? \n 1-Combatre cet adversaire.\n 2-Contourner cet adversaire et "
                            "aller ouvrir une autre porte.(coute un point de vie) \n 3-Afficher les règles du jeu. "
@@ -24,7 +27,8 @@ while True:
 
             nb_combat += 1
             combat_status = False
-            score_de = random.randint(2, 12)
+            escaped = False
+            score_de = 13#random.randint(2, 12)
             print(f"Lancer du dé : {score_de}.")
             print(f"Adversaire : ")
             print(f"Force de l'adversaire : {force_monstre}")
@@ -50,25 +54,33 @@ while True:
                 print(f"Niveau de vie : {vie}.")
                 print(f"Nombre de victoire consecutive : {nb_victoire_consecutive}. \n")
 
-                if vie <= 0:
-                    print(f"La partie est terminé, vous avez vaincus {victoire} montre(s). \n ")
-                    break
             print(f"Combat numéro {nb_combat} : {victoire} victoire(s) vs {defaite} défaite(s).\n")
 
-        if action == 2:
+        elif action == 2:
+            escaped = True
             vie -= 1
-            print(f"Vous aver maintenant {vie} vie(s). \n ")
+            print(f" Vous contournée l'adversaire. \n Vous aver maintenant {vie} vie(s). \n ")
 
+        elif action == 3:
+            print("Pour réussir un combat,il faut que la valeur du dé lancé soit supérieure à la force de l’adversaire."
+                  " \nDans ce cas, le niveau de vie de l’usager est augmenté de la force de l’adversaire.\n"
+                  "Une défaite a lieu lorsque la valeur du dé lancé par l’usager est inférieure ou égale à la force de "
+                  "l’adversaire. \n Dans ce cas, le niveau de vie de l’usager est diminué de la force de l’adversaire."
+                  " \nLa partie se termine lorsque les points de vie de l’usager tombent sous 0.\n "
+                  "L’usager peut combattre ou éviter chaque adversaire, dans le cas de l’évitement, il y a une pénalite"
+                  " de 1 point de vie. \n ")
 
-    if action == 3:
-        print("Pour réussir un combat, il faut que la valeur du dé lancé soit supérieure à la force de l’adversaire. \n"
-              " Dans ce cas, le niveau de vie de l’usager est augmenté de la force de l’adversaire.\n"
-              "Une défaite a lieu lorsque la valeur du dé lancé par l’usager est inférieure ou égale à la force de "
-              "l’adversaire. \n Dans ce cas, le niveau de vie de l’usager est diminué de la force de l’adversaire. \n"
-              "La partie se termine lorsque les points de vie de l’usager tombent sous 0.\n "
-              "L’usager peut combattre ou éviter chaque adversaire, dans le cas de l’évitement, il y a une pénalité de"
-              " 1 point de vie. \n ")
+        elif action == 4:
+            print(" merci et aurevoire ... ")
+            quit()
 
-    if action == 4:
-        print(" merci et aurevoire ... ")
-        break
+        if vie <= 0:
+            print(f"La partie est terminé, vous avez vaincus {victoire} montre(s). \n ")
+            rejouer = input("Vouler vous rejouer? Oui ou non.")
+
+            if rejouer == "oui":
+                break
+
+            if rejouer == "non":
+                print("Merci d'avoire jouer.")
+                quit()
