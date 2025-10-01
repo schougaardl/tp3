@@ -17,7 +17,7 @@ while True:
         if victoire > 0 and victoire % 3 == 0 and not escaped:
             escaped = False
             print("Vous tomber contre un boss.")
-            force_monstre = 11
+            force_monstre = random.randint(8, 12)
         print(f"vous tomber face a un adeversaire de difficulte :{force_monstre}")
         action = int(input("Que voulez-vous faire? \n 1-Combatre cet adversaire.\n 2-Contourner cet adversaire et "
                            "aller ouvrir une autre porte.(coute un point de vie) \n 3-Afficher les règles du jeu. "
@@ -28,14 +28,18 @@ while True:
             nb_combat += 1
             combat_status = False
             escaped = False
-            score_de = 13#random.randint(2, 12)
-            print(f"Lancer du dé : {score_de}.")
-            print(f"Adversaire : ")
-            print(f"Force de l'adversaire : {force_monstre}")
-            print(f"Niveau de vie de l'usager : {vie}")
-            print(f"Combat numéro {nb_combat} : {victoire} victoire(s) vs {defaite} défaite(s).")
+            score_de1 = random.randint(1, 6)
+            score_de2 = random.randint(1, 6)
+            force_joueur = score_de1 + score_de2
+            print(f"Lancer du premier dé : {score_de1}. \n"
+                  f"Lancer du deuxième dé : {score_de2}. \n"
+                  f"Votre ataaque fait {force_joueur} de dégats. \n"
+                  f"Adversaire : \n "
+                  f"Force de l'adversaire : {force_monstre} \n"
+                  f"Niveau de vie de l'usager : {vie} \n"
+                  f"Combat numéro {nb_combat} : {victoire} victoire(s) vs {defaite} défaite(s).\n")
 
-            if score_de > force_monstre:
+            if force_joueur > force_monstre:
                 combat_status = True
 
             if combat_status:
