@@ -14,7 +14,8 @@ while True:
     monstre = True
 
     while True:
-        force_monstre = random.randint(1, 12)
+        if monstre:
+            force_monstre = random.randint(1, 12)
         if victoire > 0 and victoire % 3 == 0 and not escaped:
             escaped = False
             print("Vous tomber contre un boss.")
@@ -29,11 +30,9 @@ while True:
             nb_combat += 1
             combat_status = False
             escaped = False
-            if monstre == True:
-                score_de1 = random.randint(1, 6)
-                score_de2 = random.randint(1, 6)
-                force_joueur = score_de1 + score_de2
-
+            score_de1 = random.randint(1, 6)
+            score_de2 = random.randint(1, 6)
+            force_joueur = score_de1 + score_de2
             print(f"Lancer du premier dé : {score_de1}. \n")
             time.sleep(0.5)
             print(f"Lancer du deuxième dé : {score_de2}. \n")
@@ -46,7 +45,7 @@ while True:
             time.sleep(0.5)
             print(f"Niveau de vie de l'usager : {vie} \n")
             time.sleep(0.7)
-            monstre = True
+
 
             if force_joueur > force_monstre:
                 combat_status = True
@@ -72,6 +71,8 @@ while True:
                 print(f"Nombre de victoire consecutive : {nb_victoire_consecutive}. \n")
                 print(f"Combat numéro {nb_combat} : {victoire} victoire(s) vs {defaite} défaite(s).\n")
                 time.sleep(0.5)
+
+            monstre = True
 
         elif action == 2:
             escaped = True
