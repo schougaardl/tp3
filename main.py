@@ -103,5 +103,5 @@ while True:
                 break
 
             if rejouer == "non":
-                print("Merci d'avoire jouer.")
+                print("Merci d'avoire jouer. Bonne journée.")
                 quit()
